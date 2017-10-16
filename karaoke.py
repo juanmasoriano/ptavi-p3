@@ -9,7 +9,7 @@ import json
 import urllib.request
 
 
-class SmallSMILEHandler(ContentHandler):
+class KaraokeLocal(ContentHandler):
 
     def __init__ (self):
         """
@@ -201,7 +201,7 @@ if __name__ == "__main__":
     try:    
         fichero = sys.argv[1]
         parser = make_parser()
-        cHandler = SmallSMILEHandler()
+        cHandler = KaraokeLocal()
         parser.setContentHandler(cHandler)
         parser.parse(open(fichero))
     except IndexError:
