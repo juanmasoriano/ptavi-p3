@@ -45,6 +45,11 @@ class SmallSMILEHandler(ContentHandler):
         self.sr1 = ''
         self.region1 = ''
 
+        self.el1 = ''
+        self.el2 = ''
+        self.el3 = ''
+        self.el4 = ''
+        self.el5 = ''
 
 
     def startElement(self, name, attrs):
@@ -59,7 +64,7 @@ class SmallSMILEHandler(ContentHandler):
                 self.height = ('\theight=' + attrs.get('height'))    
             if attrs.get('background-color',"") != "":
                 self.bck_gr = ('\tbackground-color=' + attrs.get('background-color'))
-            print(self.root + self.width + self.height + self.bck_gr)
+            self.el1 = (self.root + self.width + self.height + self.bck_gr + '\n')
 
         elif name == 'region':
             self.inRegion = True
@@ -75,7 +80,7 @@ class SmallSMILEHandler(ContentHandler):
                 self.left = ('\tleft=' + attrs.get('left'))
             if attrs.get('right',"") != "":
                 self.right = ('\tright=' + attrs.get('right'))
-            print(self.reg + self.id + self.top + self.bot + self.left + self.right)
+            self.el2 = (self.reg + self.id + self.top + self.bot + self.left + self.right + '\n')
 
         elif name == 'img':
             self.inImg = True
@@ -89,7 +94,7 @@ class SmallSMILEHandler(ContentHandler):
                 self.beg = ('\tbegin=' + attrs.get('begin'))
             if attrs.get('dur',"") != "":
                 self.dur = ('\tdur=' + attrs.get('dur'))
-            print(self.img + self.src + self.region + self.beg + self.dur)
+            self.el3 = (self.img + self.src + self.region + self.beg + self.dur + '\n')
 
         elif name == 'audio':
             self.inAudio = True
@@ -101,7 +106,7 @@ class SmallSMILEHandler(ContentHandler):
                 self.beg1 = ('\tbegin=' + attrs.get('begin'))
             if attrs.get('dur',"") != "":
                 self.dur1 = ('\tdur=' + attrs.get('dur'))
-            print(self.audio + self.sr + self.beg1 + self.dur1)
+            self.el4 = (self.audio + self.sr + self.beg1 + self.dur1 + '\n')
 
         elif name == 'textstream':
             self.inTextstream = True
@@ -111,7 +116,9 @@ class SmallSMILEHandler(ContentHandler):
                 self.sr1 = ('\tsrc=' + attrs.get('src'))
             if attrs.get('region',"") != "":
                 self.region1 = ('\tregion=' + attrs.get('region'))
-            print(self.text + self.sr1 + self.region1)
+            self.el5 = (self.text + self.sr1 + self.region1)
+
+            print(self.el1 + self.el2 + self.el3 + self.el4 + self.el5)
 
   
     def endElement(self, name):
