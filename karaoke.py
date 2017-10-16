@@ -6,6 +6,7 @@ from xml.sax.handler import ContentHandler
 from smallsmilhandler import SmallSMILEHandler
 import sys
 import json
+import urllib.request
 
 
 class SmallSMILEHandler(ContentHandler):
@@ -102,8 +103,15 @@ class SmallSMILEHandler(ContentHandler):
             self.img = ('img')
 
             if attrs.get('src',"") != "":
-                self.src = ('\tsrc=' + attrs.get('src'))
-                self.jsonimg['src'] = attrs.get('src')
+                tupla = attrs.get('src').partition("http://")
+                if tupla[1] == 'http://':
+                    urllib.request.urlretrieve(attrs.get('src',""),'img.jpg')
+                    tupla1 = attrs.get('src').partition("smil/")
+                    self.src = ('\tsrc=' + tupla1[2])
+                    self.jsonimg['src'] = tupla1[2]
+                else:
+                    self.src = ('\tsrc=' + attrs.get('src'))
+                    self.jsonimg['src'] = attrs.get('src')
             if attrs.get('region',"") != "":
                 self.region = ('\tregion=' + attrs.get('region'))
                 self.jsonimg['region'] = attrs.get('region')
@@ -120,8 +128,15 @@ class SmallSMILEHandler(ContentHandler):
             self.audio = ('audio')
 
             if attrs.get('src',"") != "":
-                self.sr = ('\tsrc=' + attrs.get('src'))
-                self.jsonaudio['src'] = attrs.get('src')
+                tupla = attrs.get('src').partition("http://")
+                if tupla[1] == 'http://':
+                    urllib.request.urlretrieve(attrs.get('src',""),'img.wav')
+                    tupla1 = attrs.get('src').partition("smil/")
+                    self.sr = ('\tsrc=' + tupla1[2])
+                    self.jsonaudio['src'] = tupla1[2]
+                else:
+                    self.sr = ('\tsrc=' + attrs.get('src'))
+                    self.jsonaudio['src'] = attrs.get('src')
             if attrs.get('begin',"") != "":
                 self.beg1 = ('\tbegin=' + attrs.get('begin'))
                 self.jsonaudio['begin'] = attrs.get('begin')
@@ -135,8 +150,15 @@ class SmallSMILEHandler(ContentHandler):
             self.text = ('textstream')
 
             if attrs.get('src',"") != "":
-                self.sr1 = ('\tsrc=' + attrs.get('src'))
-                self.jsontext['src'] = attrs.get('src')
+                tupla = attrs.get('src').partition("http://")
+                if tupla[1] == 'http://':
+                    urllib.request.urlretrieve(attrs.get('src',""),'img.rt')
+                    tupla1 = attrs.get('src').partition("grex/")
+                    self.sr1 = ('\tsrc=' + tupla1[2])
+                    self.jsontext['src'] = tupla1[2]
+                else:
+                    self.sr1 = ('\tsrc=' + attrs.get('src'))
+                    self.jsontext['src'] = attrs.get('src')
             if attrs.get('region',"") != "":
                 self.region1 = ('\tregion=' + attrs.get('region'))
                 self.jsontext['region'] = attrs.get('region')
